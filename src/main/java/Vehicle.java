@@ -80,8 +80,8 @@ public class Vehicle {
         return Math.abs(currentX_c - startOfRideX) + Math.abs(currentY_r - startOfRideY);
     }
 
-    public void nextMove() {
-        if (currentRide == null) {
+    public void nextMove(int currentStep) {
+        if (currentRide == null || currentRide.getEarliestStart() > currentStep ) {
             return;
         }
 

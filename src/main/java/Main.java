@@ -34,7 +34,10 @@ public class Main {
             for (Vehicle vehicle : vehicles) {
                 vehicle.takeRide(allRides, i);
             }
-            vehicles.forEach(Vehicle::nextMove);
+            for (Vehicle vehicle : vehicles) {
+                vehicle.nextMove(i);
+
+            }
             vehicles.forEach(Vehicle::checkIsAtDestination);
         }
 
