@@ -62,4 +62,8 @@ public class Ride {
     public void setLastestFinish(int lastestFinish) {
         this.lastestFinish = lastestFinish;
     }
+
+    public int getDistance(){
+        return Math.abs(getX1()-getX2()) + Math.abs(getY1()-getY2());
+    }
 }
