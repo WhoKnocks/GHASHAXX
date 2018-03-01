@@ -7,6 +7,7 @@ public class Ride {
     private int earliestStart;
     private int lastestFinish;
     private boolean isTaken;
+    private boolean isActive;
 
     public Ride(int index, int x_start, int y_start, int x_finish, int y_finish, int earliestStart, int lastestFinish) {
         this.index = index;
@@ -17,6 +18,14 @@ public class Ride {
         this.earliestStart = earliestStart;
         this.lastestFinish = lastestFinish;
         isTaken = false;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public int getIndex() {

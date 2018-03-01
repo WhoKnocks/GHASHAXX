@@ -75,21 +75,23 @@ public class Vehicle {
             return;
         }
 
-        if (getCurrentX_c() < currentRide.getX_start()) {
+        int toX = currentRide.isActive() ? currentRide.getX_finish() : currentRide.getX_start();
+        int toY = currentRide.isActive() ? currentRide.getY_finish() : currentRide.getY_start();
+
+        if (getCurrentX_c() < toX) {
             setCurrentX_c(getCurrentX_c() + 1);
-            return;
-        }
-        if (getCurrentX_c() > currentRide.getX_start()) {
+        } else if (getCurrentX_c() > toX) {
             setCurrentX_c(getCurrentX_c() - 1);
-            return;
-        }
-        if (getCurrentY_r() < currentRide.getY_start()) {
+        } else if (getCurrentY_r() < toY) {
             setCurrentY_r(getCurrentY_r() + 1);
-            return;
-        }
-        if (getCurrentY_r() > currentRide.getY_start()) {
+        } else if (getCurrentY_r() > toY) {
             setCurrentY_r(getCurrentY_r() - 1);
-            return;
+        }
+
+        if (!currentRide.isActive()) {
+            if (getCurrentY_r() == toY && getCurrentX_c() == toX) {
+                currentRide.setActive(true);
+            }
         }
     }
 
@@ -111,7 +113,7 @@ public class Vehicle {
 
     public void checkIsAtDestination() {
         if (currentRide == null) return;
-        if (currentRide.getX_finish() == currentX_c && currentRide.getY_finish() == currentY_r) {
+        if (currentRide.isActive() && currentRide.getX_finish() == currentX_c && currentRide.getY_finish() == currentY_r) {
             this.previousRides.add(currentRide);
             this.currentRide = null;
         }
