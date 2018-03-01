@@ -1,16 +1,21 @@
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
+
 public class Main {
 
     public static void main(String[] args) {
-        final InputReader<Integer> inputReader = new InputReader<Integer>() {
-            @Override
-            public Integer parseElement(String element) {
-                return Integer.parseInt(element);
-            }
-        };
+        List<List<Integer>> lines = IOUtil.getLines("test.in", " ", Integer::parseInt);
 
-        inputReader.getLines("test.in", " ").forEach(integers -> {
-            integers.forEach(integer -> System.out.print(" "+ integer));
-            System.out.println();
-        });
+        List<String> result = lines.stream()
+                .map(list -> list.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining(" ")))
+                .collect(toList());
+
+        result.forEach(System.out::println);
+
+        IOUtil.writeLines("test.out", result);
     }
 }
