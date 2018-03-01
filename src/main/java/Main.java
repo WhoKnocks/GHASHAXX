@@ -4,7 +4,11 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        List<List<Integer>> lines = IOUtil.getLines("a_example.in", " ", Integer::parseInt);
+//        List<List<Integer>> lines = IOUtil.getLines("a_example.in", " ", Integer::parseInt);
+//        List<List<Integer>> lines = IOUtil.getLines("b_should_be_easy.in", " ", Integer::parseInt);
+        List<List<Integer>> lines = IOUtil.getLines("c_no_hurry.in", " ", Integer::parseInt);
+//        List<List<Integer>> lines = IOUtil.getLines("d_metropolis.in", " ", Integer::parseInt);
+//        List<List<Integer>> lines = IOUtil.getLines("e_high_bonus.in", " ", Integer::parseInt);
 
         List<Integer> firstRow = lines.get(0);
 
