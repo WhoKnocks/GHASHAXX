@@ -39,6 +39,7 @@ public class Vehicle {
         if (bestRide != null) {
             bestRide.setTaken(true);
             currentRide = bestRide;
+            rideList.remove(bestRide);
 //                System.out.println("car " + index + " is assigned ride " + bestRide.getIndex());
 //                System.out.println("(" + bestRide.getX_start() + "," + bestRide.getY_start() + ")");
 //                System.out.println("becuase min is " + lowest);
