@@ -1,6 +1,5 @@
+import java.util.ArrayList;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 public class Main {
 
@@ -17,20 +16,19 @@ public class Main {
         int numberOfSteps_T = firstRow.get(5);
 
         int rideIndex = 0;
+        List<Ride> allRides = new ArrayList<>();
         for (List<Integer> row : lines.subList(1, lines.size() - 1)) {
-            new Ride(rideIndex++, row.get(0), row.get(1), row.get(2), row.get(3), row.get(4), row.get(5));
+            allRides.add(new Ride(rideIndex++, row.get(0), row.get(1), row.get(2), row.get(3), row.get(4), row.get(5)));
         }
 
         List<Vehicle> vehicles = VehicleBuilder.buildVehicles(numberVehicles_F);
 
-//        List<String> result = lines.stream()
-//                .map(list -> list.stream()
-//                        .map(Object::toString)
-//                        .collect(Collectors.joining(" ")))
-//                .collect(toList());
-//
-//        result.forEach(System.out::println);
-//
-//        IOUtil.writeLines("test.out", result);
+        for (int i = 0; i <= numberOfSteps_T; numberOfSteps_T--) {
+            vehicles.forEach(vehicle -> vehicle.takeRide(allRides));
+            vehicles.forEach(Vehicle::nextMove);
+            vehicles.forEach(Vehicle::checkIsAtDestination);
+        }
+
+        OutputBuilder.buildOutput("output", vehicles);
     }
 }

@@ -21,18 +21,20 @@ public class Vehicle {
     }
 
     public void takeRide(List<Ride> rideList) {
-        Ride bestRide = null;
-        int lowest = 0;
-        for (Ride ride : rideList) {
-            int newMin = Math.min(ride.getEarliestStart(), getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX1(), ride.getY1()));
-            if (!ride.isTaken() && (bestRide == null || lowest > newMin)) {
-                bestRide = ride;
-                lowest = newMin;
+        if (currentRide == null) {
+            Ride bestRide = null;
+            int lowest = 0;
+            for (Ride ride : rideList) {
+                int newMin = Math.min(ride.getEarliestStart(), getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX1(), ride.getY1()));
+                if (!ride.isTaken() && (bestRide == null || lowest > newMin)) {
+                    bestRide = ride;
+                    lowest = newMin;
+                }
             }
-        }
-        if (bestRide != null) {
-            bestRide.setTaken(true);
-            currentRide = bestRide;
+            if (bestRide != null) {
+                bestRide.setTaken(true);
+                currentRide = bestRide;
+            }
         }
     }
 
@@ -69,7 +71,7 @@ public class Vehicle {
     }
 
     public void nextMove() {
-        if(currentRide == null){
+        if (currentRide == null) {
             return;
         }
 
@@ -105,5 +107,13 @@ public class Vehicle {
 
     public void setCurrentY_r(int currentY_r) {
         this.currentY_r = currentY_r;
+    }
+
+    public void checkIsAtDestination() {
+        if (currentRide == null) return;
+        if (currentRide.getX2() == currentX_c && currentRide.getY2() == currentY_r) {
+            addRide(currentRide);
+            this.currentRide = null;
+        }
     }
 }
