@@ -1,12 +1,11 @@
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
 public class Main {
 
     public static void main(String[] args) {
-        List<List<Integer>> lines = IOUtil.getLines("test.in", " ", Integer::parseInt);
+        List<List<Integer>> lines = IOUtil.getLines("a_example.in", " ", Integer::parseInt);
 
         List<Integer> firstRow = lines.get(0);
 
@@ -21,6 +20,7 @@ public class Main {
                 .map(row -> new Ride(row.get(0), row.get(1), row.get(2), row.get(3), row.get(4), row.get(5)))
                 .collect(toList());
 
+        List<Vehicle> vehicles = VehicleBuilder.buildVehicles(numberVehicles_F);
 
 //        List<String> result = lines.stream()
 //                .map(list -> list.stream()
