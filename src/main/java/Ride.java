@@ -5,6 +5,7 @@ public class Ride {
     private int y2;
     private int earliestStart;
     private int lastestFinish;
+    private boolean isTaken;
 
     public Ride(int x1, int y1, int x2, int y2, int earliestStart, int lastestFinish) {
         this.x1 = x1;
@@ -13,6 +14,15 @@ public class Ride {
         this.y2 = y2;
         this.earliestStart = earliestStart;
         this.lastestFinish = lastestFinish;
+        isTaken = false;
+    }
+
+    public boolean isTaken() {
+        return isTaken;
+    }
+
+    public void setTaken(boolean taken) {
+        isTaken = taken;
     }
 
     public int getX1() {
@@ -63,7 +73,7 @@ public class Ride {
         this.lastestFinish = lastestFinish;
     }
 
-    public int getDistance(){
-        return Math.abs(getX1()-getX2()) + Math.abs(getY1()-getY2());
+    public int getDistance() {
+        return Math.abs(getX1() - getX2()) + Math.abs(getY1() - getY2());
     }
 }
