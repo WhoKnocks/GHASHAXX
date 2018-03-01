@@ -68,6 +68,29 @@ public class Vehicle {
         return Math.abs(currentX_c - startOfRideX) + Math.abs(currentY_r - startOfRideY);
     }
 
+    public void nextMove() {
+        if(currentRide == null){
+            return;
+        }
+
+        if (getCurrentX_c() < currentRide.getX1()) {
+            setCurrentX_c(getCurrentX_c() + 1);
+            return;
+        }
+        if (getCurrentX_c() > currentRide.getX1()) {
+            setCurrentX_c(getCurrentX_c() - 1);
+            return;
+        }
+        if (getCurrentY_r() < currentRide.getY1()) {
+            setCurrentY_r(getCurrentY_r() + 1);
+            return;
+        }
+        if (getCurrentY_r() > currentRide.getY1()) {
+            setCurrentY_r(getCurrentY_r() - 1);
+            return;
+        }
+    }
+
     public int getCurrentX_c() {
         return currentX_c;
     }
