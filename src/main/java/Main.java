@@ -17,7 +17,7 @@ public class Main {
 
         int rideIndex = 0;
         List<Ride> allRides = new ArrayList<>();
-        for (List<Integer> row : lines.subList(1, lines.size() - 1)) {
+        for (List<Integer> row : lines.subList(1, lines.size())) {
             allRides.add(new Ride(rideIndex++, row.get(0), row.get(1), row.get(2), row.get(3), row.get(4), row.get(5)));
         }
 
