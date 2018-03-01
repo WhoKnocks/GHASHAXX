@@ -25,7 +25,9 @@ public class Vehicle {
             Ride bestRide = null;
             int lowest = 0;
             for (Ride ride : rideList) {
-                int newMin = Math.min(ride.getEarliestStart(), getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX_start(), ride.getY_start()));
+                int newMin = Math.max(ride.getEarliestStart(), getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX_start(), ride.getY_start()));
+                //System.out.println("test " + newMin);
+                //System.out.println();
                 if (!ride.isTaken() && (bestRide == null || lowest > newMin)) {
                     bestRide = ride;
                     lowest = newMin;
@@ -34,6 +36,9 @@ public class Vehicle {
             if (bestRide != null) {
                 bestRide.setTaken(true);
                 currentRide = bestRide;
+                System.out.println("car " + index + " is assigned ride " + bestRide.getIndex());
+                System.out.println("(" + bestRide.getX_start() + "," + bestRide.getY_start() + ")");
+                System.out.println("becuase min is " + lowest);
             }
         }
     }
