@@ -1,19 +1,19 @@
 public class Ride {
     private int index;
-    private int x1;
-    private int x2;
-    private int y1;
-    private int y2;
+    private int x_start;
+    private int x_finish;
+    private int y_start;
+    private int y_finish;
     private int earliestStart;
     private int lastestFinish;
     private boolean isTaken;
 
-    public Ride(int index, int x1, int y1, int x2, int y2, int earliestStart, int lastestFinish) {
+    public Ride(int index, int x_start, int y_start, int x_finish, int y_finish, int earliestStart, int lastestFinish) {
         this.index = index;
-        this.x1 = x1;
-        this.x2 = x2;
-        this.y1 = y1;
-        this.y2 = y2;
+        this.x_start = x_start;
+        this.x_finish = x_finish;
+        this.y_start = y_start;
+        this.y_finish = y_finish;
         this.earliestStart = earliestStart;
         this.lastestFinish = lastestFinish;
         isTaken = false;
@@ -35,36 +35,36 @@ public class Ride {
         isTaken = taken;
     }
 
-    public int getX1() {
-        return x1;
+    public int getX_start() {
+        return x_start;
     }
 
-    public void setX1(int x1) {
-        this.x1 = x1;
+    public void setX_start(int x_start) {
+        this.x_start = x_start;
     }
 
-    public int getX2() {
-        return x2;
+    public int getX_finish() {
+        return x_finish;
     }
 
-    public void setX2(int x2) {
-        this.x2 = x2;
+    public void setX_finish(int x_finish) {
+        this.x_finish = x_finish;
     }
 
-    public int getY1() {
-        return y1;
+    public int getY_start() {
+        return y_start;
     }
 
-    public void setY1(int y1) {
-        this.y1 = y1;
+    public void setY_start(int y_start) {
+        this.y_start = y_start;
     }
 
-    public int getY2() {
-        return y2;
+    public int getY_finish() {
+        return y_finish;
     }
 
-    public void setY2(int y2) {
-        this.y2 = y2;
+    public void setY_finish(int y_finish) {
+        this.y_finish = y_finish;
     }
 
     public int getEarliestStart() {
@@ -84,6 +84,6 @@ public class Ride {
     }
 
     public int getDistance() {
-        return Math.abs(getX1() - getX2()) + Math.abs(getY1() - getY2());
+        return Math.abs(getX_start() - getX_finish()) + Math.abs(getY_start() - getY_finish());
     }
 }
