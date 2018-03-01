@@ -16,9 +16,10 @@ public class Main {
         int perRideBonus_B = firstRow.get(4);
         int numberOfSteps_T = firstRow.get(5);
 
-        List<Ride> rides = lines.subList(1, lines.size() - 1).stream()
-                .map(row -> new Ride(row.get(0), row.get(1), row.get(2), row.get(3), row.get(4), row.get(5)))
-                .collect(toList());
+        int rideIndex = 0;
+        for (List<Integer> row : lines.subList(1, lines.size() - 1)) {
+            new Ride(rideIndex++, row.get(0), row.get(1), row.get(2), row.get(3), row.get(4), row.get(5));
+        }
 
         List<Vehicle> vehicles = VehicleBuilder.buildVehicles(numberVehicles_F);
 

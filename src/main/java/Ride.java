@@ -1,4 +1,5 @@
 public class Ride {
+    private int index;
     private int x1;
     private int x2;
     private int y1;
@@ -7,7 +8,8 @@ public class Ride {
     private int lastestFinish;
     private boolean isTaken;
 
-    public Ride(int x1, int y1, int x2, int y2, int earliestStart, int lastestFinish) {
+    public Ride(int index, int x1, int y1, int x2, int y2, int earliestStart, int lastestFinish) {
+        this.index = index;
         this.x1 = x1;
         this.x2 = x2;
         this.y1 = y1;
@@ -15,6 +17,14 @@ public class Ride {
         this.earliestStart = earliestStart;
         this.lastestFinish = lastestFinish;
         isTaken = false;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public boolean isTaken() {
