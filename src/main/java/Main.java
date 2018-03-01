@@ -11,8 +11,8 @@ public class Main {
         run("e_high_bonus");
     }
 
-    public static void run(String fileName){
-        List<List<Integer>> lines = IOUtil.getLines(fileName+".in", " ", Integer::parseInt);
+    public static void run(String fileName) {
+        List<List<Integer>> lines = IOUtil.getLines(fileName + ".in", " ", Integer::parseInt);
         List<Integer> firstRow = lines.get(0);
 
         int numberOfRows_R = firstRow.get(0);
@@ -30,12 +30,14 @@ public class Main {
 
         List<Vehicle> vehicles = VehicleBuilder.buildVehicles(numberVehicles_F);
 
-        for (int i = 0; i <= numberOfSteps_T; numberOfSteps_T--) {
-            vehicles.forEach(vehicle -> vehicle.takeRide(allRides));
+        for (int i = 0; 0 <= numberOfSteps_T; numberOfSteps_T--, i++) {
+            for (Vehicle vehicle : vehicles) {
+                vehicle.takeRide(allRides, i);
+            }
             vehicles.forEach(Vehicle::nextMove);
             vehicles.forEach(Vehicle::checkIsAtDestination);
         }
 
-        OutputBuilder.buildOutput(fileName+".out", vehicles);
+        OutputBuilder.buildOutput(fileName + ".out", vehicles);
     }
 }
