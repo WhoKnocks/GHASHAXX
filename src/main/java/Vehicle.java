@@ -26,28 +26,26 @@ public class Vehicle {
         }
 
         Ride bestRide = null;
-        int lowest = 0;
+        int currLowest = 0;
         for (Ride ride : rideList) {
-            final int distance = getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX_start(), ride.getY_start());
-
-            final int distancePlusWait;
-            //the number of steps to wait on the start when arrived
-            final int waitSteps = ride.getEarliestStart() - curStep - distance;
-            if (waitSteps > 0) {
-                distancePlusWait = distance + waitSteps;
-            } else {
-                distancePlusWait = distance;
+            if (ride.isTaken()) {
+                continue;
             }
 
-            int timeToFinishRide = Math.max(distance, (ride.getEarliestStart() - curStep)) + ride.getDistance();
+            final int distance = getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX_start(), ride.getY_start());
 
-            if (!ride.isTaken() && (bestRide == null || lowest > distancePlusWait)
+            final int waitSteps = Math.max(0, ride.getEarliestStart() - curStep - distance);
+            final int distancePlusWait = distance + waitSteps;
+
+            int timeToFinishRide = distancePlusWait + ride.getDistance();
+
+            if ((bestRide == null || currLowest > distancePlusWait)
                     && timeToFinishRide < stepsLeft
                     && timeToFinishRide < ride.getLatestFinish() - curStep) {
                 bestRide = ride;
-                lowest = distancePlusWait;
+                currLowest = distancePlusWait;
                 if (ride.getEarliestStart() <= curStep + distance) {
-                    lowest -= bonus;
+                    currLowest -= bonus;
                 }
             }
 
@@ -56,7 +54,7 @@ public class Vehicle {
             bestRide.setTaken(true);
             currentRide = bestRide;
             rideList.remove(bestRide);
-            System.out.println("car " + index + " is assigned ride " + bestRide.getIndex());
+            //          System.out.println("car " + index + " is assigned ride " + bestRide.getIndex());
 //                System.out.println("(" + bestRide.getX_start() + "," + bestRide.getY_start() + ")");
 //                System.out.println("becuase min is " + lowest);
         }
@@ -96,7 +94,7 @@ public class Vehicle {
     }
 
     public void nextMove(int currentStep) {
-        if (currentRide == null || (currentRide.isActive() && currentRide.getEarliestStart() > currentStep)) {
+        if (currentRide == null || (currentRide.isActive() && currentRide.getEarliestStart() >= currentStep)) {
             return;
         }
 

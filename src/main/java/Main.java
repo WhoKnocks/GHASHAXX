@@ -7,10 +7,15 @@ public class Main {
 
     public static void main(String[] args) {
         run("a_example");
+        System.out.println("a done");
         run("b_should_be_easy");
+        System.out.println("b done");
         run("c_no_hurry");
+        System.out.println("c done");
         run("d_metropolis");
+        System.out.println("d done");
         run("e_high_bonus");
+        System.out.println("e done");
     }
 
     public static void run(String fileName) {
