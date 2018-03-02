@@ -8,6 +8,7 @@ public class Vehicle {
     private Ride currentRide;
     private Integer currentMin;
     private List<Ride> previousRides = new ArrayList<>();
+    private boolean isNoLongerInUse = false;
 
     public Vehicle(int index, int currentX_c, int currentY_r) {
         this.index = index;
@@ -34,7 +35,6 @@ public class Vehicle {
             }
 
             final int distanceToStart = getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX_start(), ride.getY_start());
-
             final int waitSteps = Math.max(0, ride.getEarliestStart() - currStep - distanceToStart);
             final int distancePlusWait = distanceToStart + waitSteps;
 
@@ -43,7 +43,7 @@ public class Vehicle {
             if ((bestRide == null || currLowest > distancePlusWait)
                     && timeToFinishRide < stepsLeft
                     && timeToFinishRide < ride.getLatestFinish() - currStep
-                    &&  (!ride.isTaken() || (ride.isTaken() &&  ride.getVehicle().getCurrentMin() > distancePlusWait)) ) {
+                    &&  (!ride.isTaken() || (ride.getVehicle().getCurrentMin() > distancePlusWait)) ) {
                 bestRide = ride;
                 currLowest = distancePlusWait;
                 if ((ride.getEarliestStart() <= currStep + distanceToStart)) {
@@ -62,6 +62,8 @@ public class Vehicle {
 //                      System.out.println("car " + index + " is assigned ride " + bestRide.getIndex());
 //                System.out.println("(" + bestRide.getX_start() + "," + bestRide.getY_start() + ")");
 //                System.out.println("becuase min is " + lowest);
+        }else{
+            setIsNoLongerInUse();
         }
 
     }
@@ -155,5 +157,13 @@ public class Vehicle {
 
     public void setCurrentMin(final Integer currentMin) {
         this.currentMin = currentMin;
+    }
+
+    public void setIsNoLongerInUse(){
+        isNoLongerInUse = true;
+    }
+
+    public boolean isNoLongerInUse(){
+        return isNoLongerInUse;
     }
 }

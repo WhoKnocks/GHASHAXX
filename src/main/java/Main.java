@@ -1,21 +1,19 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) {
         run("a_example");
         System.out.println("a done");
-//        run("b_should_be_easy");
-//        System.out.println("b done");
-//        run("c_no_hurry");
-//        System.out.println("c done");
-//        run("d_metropolis");
-//        System.out.println("d done");
-//        run("e_high_bonus");
-//        System.out.println("e done");
+        run("b_should_be_easy");
+        System.out.println("b done");
+        run("c_no_hurry");
+        System.out.println("c done");
+        run("d_metropolis");
+        System.out.println("d done");
+        run("e_high_bonus");
+        System.out.println("e done");
     }
 
     public static void run(String fileName) {
@@ -39,7 +37,7 @@ public class Main {
 
         for (int i = 0; 0 <= numberOfSteps_T; numberOfSteps_T--, i++) {
 
-            while (!allVehiclesHaveRide(vehicles)) {
+            while (!allVehiclesThatAreStillInUseHaveRide(vehicles)) {
                 for (Vehicle vehicle : vehicles) {
                     vehicle.takeRide(allRides, i, numberOfSteps_T, perRideBonus_B);
                 }
@@ -55,9 +53,9 @@ public class Main {
     }
 
 
-    public static boolean allVehiclesHaveRide(List<Vehicle> vehicles) {
+    public static boolean allVehiclesThatAreStillInUseHaveRide(List<Vehicle> vehicles) {
         for (Vehicle vehicle : vehicles) {
-            if (vehicle.getCurrentRide() == null) {
+            if (vehicle.getCurrentRide() == null && !vehicle.isNoLongerInUse()) {
                 return false;
             }
         }
