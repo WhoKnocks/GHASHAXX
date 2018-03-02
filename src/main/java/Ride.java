@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Ride {
     private int index;
     private int x_start;
@@ -95,4 +97,6 @@ public class Ride {
     public int getDistance() {
         return Math.abs(getX_start() - getX_finish()) + Math.abs(getY_start() - getY_finish());
     }
+
+
 }

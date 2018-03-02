@@ -29,11 +29,14 @@ public class Vehicle {
         int lowest = 0;
         for (Ride ride : rideList) {
             int distance = getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX_start(), ride.getY_start());
-            int newMin = Math.max(ride.getEarliestStart() - curStep - distance, distance);
+            int newMin = distance;
+            if((ride.getEarliestStart() - curStep - distance)>0)
+                newMin += (ride.getEarliestStart() - curStep - distance);
             int distanceBetweenCarAndStart = getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX_start(), ride.getY_start());
             int timeToFinishRide = Math.max(distanceBetweenCarAndStart, (ride.getEarliestStart() - curStep)) + ride.getDistance();
             //System.out.println("test " + newMin);
             //System.out.println();
+
             if (!ride.isTaken() && (bestRide == null || lowest > newMin)
                     && timeToFinishRide < stepsLeft
                     && timeToFinishRide < ride.getLatestFinish() - curStep) {

@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
 
@@ -31,6 +33,7 @@ public class Main {
         List<Vehicle> vehicles = VehicleBuilder.buildVehicles(numberVehicles_F);
 
         for (int i = 0; 0 <= numberOfSteps_T; numberOfSteps_T--, i++) {
+
             for (Vehicle vehicle : vehicles) {
                 vehicle.takeRide(allRides, i, numberOfSteps_T, perRideBonus_B);
             }
