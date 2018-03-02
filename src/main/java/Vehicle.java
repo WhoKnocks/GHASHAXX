@@ -20,7 +20,7 @@ public class Vehicle {
         this.currentY_r = 0;
     }
 
-    public void takeRide(List<Ride> rideList, int curStep, int stepsLeft, int ignoranceFactorX, int ignoranceFactorY) {
+    public void takeRide(List<Ride> rideList, int curStep, int stepsLeft, int bonus) {
         if (currentRide != null) {
             return;
         }
@@ -36,19 +36,20 @@ public class Vehicle {
             //System.out.println();
             if (!ride.isTaken() && (bestRide == null || lowest > newMin)
                     && timeToFinishRide < stepsLeft
-                    && timeToFinishRide < ride.getLatestFinish() - curStep
-                    //Dit is die 'negeer ritten die te ver van het gemiddelde liggen' stap, maar die doet het alleen beter voor de metropolis...
-//                    && ride.getX_finish() < ignoranceFactorX && ride.getY_finish() < ignoranceFactorY
-                    ) {
+                    && timeToFinishRide < ride.getLatestFinish() - curStep) {
                 bestRide = ride;
                 lowest = newMin;
+                if(ride.getEarliestStart() <= curStep + distanceBetweenCarAndStart){
+                    lowest-=bonus;
+                }
             }
+
         }
         if (bestRide != null) {
             bestRide.setTaken(true);
             currentRide = bestRide;
             rideList.remove(bestRide);
-//                System.out.println("car " + index + " is assigned ride " + bestRide.getIndex());
+                System.out.println("car " + index + " is assigned ride " + bestRide.getIndex());
 //                System.out.println("(" + bestRide.getX_start() + "," + bestRide.getY_start() + ")");
 //                System.out.println("becuase min is " + lowest);
         }
@@ -88,7 +89,7 @@ public class Vehicle {
     }
 
     public void nextMove(int currentStep) {
-        if (currentRide == null || currentRide.getEarliestStart() > currentStep ) {
+        if (currentRide == null || (currentRide.isActive() && currentRide.getEarliestStart() > currentStep )) {
             return;
         }
 
