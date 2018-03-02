@@ -20,7 +20,7 @@ public class Vehicle {
         this.currentY_r = 0;
     }
 
-    public void takeRide(List<Ride> rideList, int curStep) {
+    public void takeRide(List<Ride> rideList, int curStep, int stepsLEft) {
         if (currentRide != null) {
             return;
         }
@@ -32,7 +32,8 @@ public class Vehicle {
             int newMin = Math.max(ride.getEarliestStart() - curStep - distance, distance);
             //System.out.println("test " + newMin);
             //System.out.println();
-            if (!ride.isTaken() && (bestRide == null || lowest > newMin)) {
+            if (!ride.isTaken() && (bestRide == null || lowest > newMin) &&
+                    (getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX_start(), ride.getY_start()) + ride.getDistance()) <= stepsLEft) {
                 bestRide = ride;
                 lowest = newMin;
             }

@@ -32,7 +32,7 @@ public class Main {
 
         for (int i = 0; 0 <= numberOfSteps_T; numberOfSteps_T--, i++) {
             for (Vehicle vehicle : vehicles) {
-                vehicle.takeRide(allRides, i);
+                vehicle.takeRide(allRides, i, numberOfSteps_T);
             }
             for (Vehicle vehicle : vehicles) {
                 vehicle.nextMove(i);
