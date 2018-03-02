@@ -10,6 +10,9 @@ public class Ride {
     private int latestFinish;
     private boolean isTaken;
     private boolean isActive;
+    private boolean isFinished = false;
+
+    private Vehicle vehicle;
 
     public Ride(int index, int x_start, int y_start, int x_finish, int y_finish, int earliestStart, int lastestFinish) {
         this.index = index;
@@ -98,5 +101,28 @@ public class Ride {
         return Math.abs(getX_start() - getX_finish()) + Math.abs(getY_start() - getY_finish());
     }
 
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
 
+    public void setVehicle(final Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public void releaseVehicle() {
+        if (vehicle != null) {
+            System.out.println("Ride is released");
+            vehicle.setCurrentMin(null);
+            vehicle.setCurrentRide(null);
+            vehicle = null;
+        }
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(final boolean finished) {
+        isFinished = finished;
+    }
 }

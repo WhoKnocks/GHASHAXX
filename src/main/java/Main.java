@@ -8,14 +8,14 @@ public class Main {
     public static void main(String[] args) {
         run("a_example");
         System.out.println("a done");
-        run("b_should_be_easy");
-        System.out.println("b done");
-        run("c_no_hurry");
-        System.out.println("c done");
-        run("d_metropolis");
-        System.out.println("d done");
-        run("e_high_bonus");
-        System.out.println("e done");
+//        run("b_should_be_easy");
+//        System.out.println("b done");
+//        run("c_no_hurry");
+//        System.out.println("c done");
+//        run("d_metropolis");
+//        System.out.println("d done");
+//        run("e_high_bonus");
+//        System.out.println("e done");
     }
 
     public static void run(String fileName) {
@@ -39,16 +39,28 @@ public class Main {
 
         for (int i = 0; 0 <= numberOfSteps_T; numberOfSteps_T--, i++) {
 
-            for (Vehicle vehicle : vehicles) {
-                vehicle.takeRide(allRides, i, numberOfSteps_T, perRideBonus_B);
+            while (!allVehiclesHaveRide(vehicles)) {
+                for (Vehicle vehicle : vehicles) {
+                    vehicle.takeRide(allRides, i, numberOfSteps_T, perRideBonus_B);
+                }
             }
+
             for (Vehicle vehicle : vehicles) {
                 vehicle.nextMove(i);
-
             }
             vehicles.forEach(Vehicle::checkIsAtDestination);
         }
 
         OutputBuilder.buildOutput(fileName + ".out", vehicles);
+    }
+
+
+    public static boolean allVehiclesHaveRide(List<Vehicle> vehicles) {
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getCurrentRide() == null) {
+                return false;
+            }
+        }
+        return true;
     }
 }

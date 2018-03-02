@@ -6,6 +6,7 @@ public class Vehicle {
     private int currentX_c;
     private int currentY_r;
     private Ride currentRide;
+    private Integer currentMin;
     private List<Ride> previousRides = new ArrayList<>();
 
     public Vehicle(int index, int currentX_c, int currentY_r) {
@@ -20,7 +21,7 @@ public class Vehicle {
         this.currentY_r = 0;
     }
 
-    public void takeRide(List<Ride> rideList, int curStep, int stepsLeft, int bonus) {
+    public void takeRide(List<Ride> rideList, int currStep, int stepsLeft, int bonus) {
         if (currentRide != null) {
             return;
         }
@@ -28,23 +29,24 @@ public class Vehicle {
         Ride bestRide = null;
         int currLowest = 0;
         for (Ride ride : rideList) {
-            if (ride.isTaken()) {
+            if (ride.isFinished()) {
                 continue;
             }
 
-            final int distance = getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX_start(), ride.getY_start());
+            final int distanceToStart = getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX_start(), ride.getY_start());
 
-            final int waitSteps = Math.max(0, ride.getEarliestStart() - curStep - distance);
-            final int distancePlusWait = distance + waitSteps;
+            final int waitSteps = Math.max(0, ride.getEarliestStart() - currStep - distanceToStart);
+            final int distancePlusWait = distanceToStart + waitSteps;
 
             int timeToFinishRide = distancePlusWait + ride.getDistance();
 
             if ((bestRide == null || currLowest > distancePlusWait)
                     && timeToFinishRide < stepsLeft
-                    && timeToFinishRide < ride.getLatestFinish() - curStep) {
+                    && timeToFinishRide < ride.getLatestFinish() - currStep
+                    &&  (!ride.isTaken() || (ride.isTaken() &&  ride.getVehicle().getCurrentMin() > distancePlusWait)) ) {
                 bestRide = ride;
                 currLowest = distancePlusWait;
-                if (ride.getEarliestStart() <= curStep + distance) {
+                if ((ride.getEarliestStart() <= currStep + distanceToStart)) {
                     currLowest -= bonus;
                 }
             }
@@ -52,9 +54,12 @@ public class Vehicle {
         }
         if (bestRide != null) {
             bestRide.setTaken(true);
+            bestRide.releaseVehicle();
+            bestRide.setVehicle(this);
             currentRide = bestRide;
-            rideList.remove(bestRide);
-            //          System.out.println("car " + index + " is assigned ride " + bestRide.getIndex());
+            currentMin = currLowest;
+           // rideList.remove(bestRide);
+//                      System.out.println("car " + index + " is assigned ride " + bestRide.getIndex());
 //                System.out.println("(" + bestRide.getX_start() + "," + bestRide.getY_start() + ")");
 //                System.out.println("becuase min is " + lowest);
         }
@@ -138,7 +143,17 @@ public class Vehicle {
         if (currentRide == null) return;
         if (currentRide.isActive() && currentRide.getX_finish() == currentX_c && currentRide.getY_finish() == currentY_r) {
             this.previousRides.add(currentRide);
+            this.currentRide.setFinished(true);
             this.currentRide = null;
+            this.currentMin = null;
         }
+    }
+
+    public Integer getCurrentMin() {
+        return currentMin;
+    }
+
+    public void setCurrentMin(final Integer currentMin) {
+        this.currentMin = currentMin;
     }
 }
