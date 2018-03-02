@@ -20,7 +20,7 @@ public class Vehicle {
         this.currentY_r = 0;
     }
 
-    public void takeRide(List<Ride> rideList, int curStep, int stepsLEft) {
+    public void takeRide(List<Ride> rideList, int curStep, int stepsLeft, int ignoranceFactorX, int ignoranceFactorY) {
         if (currentRide != null) {
             return;
         }
@@ -30,10 +30,16 @@ public class Vehicle {
         for (Ride ride : rideList) {
             int distance = getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX_start(), ride.getY_start());
             int newMin = Math.max(ride.getEarliestStart() - curStep - distance, distance);
+            int distanceBetweenCarAndStart = getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX_start(), ride.getY_start());
+            int timeToFinishRide = Math.max(distanceBetweenCarAndStart, (ride.getEarliestStart() - curStep)) + ride.getDistance();
             //System.out.println("test " + newMin);
             //System.out.println();
-            if (!ride.isTaken() && (bestRide == null || lowest > newMin) &&
-                    (getDistanceBetweenCurrentPositionAndStartOfRide(ride.getX_start(), ride.getY_start()) + ride.getDistance()) <= stepsLEft) {
+            if (!ride.isTaken() && (bestRide == null || lowest > newMin)
+                    && timeToFinishRide < stepsLeft
+                    && timeToFinishRide < ride.getLatestFinish() - curStep
+                    //Dit is die 'negeer ritten die te ver van het gemiddelde liggen' stap, maar die doet het alleen beter voor de metropolis...
+//                    && ride.getX_finish() < ignoranceFactorX && ride.getY_finish() < ignoranceFactorY
+                    ) {
                 bestRide = ride;
                 lowest = newMin;
             }

@@ -5,7 +5,7 @@ public class Ride {
     private int y_start;
     private int y_finish;
     private int earliestStart;
-    private int lastestFinish;
+    private int latestFinish;
     private boolean isTaken;
     private boolean isActive;
 
@@ -16,7 +16,7 @@ public class Ride {
         this.y_start = y_start;
         this.y_finish = y_finish;
         this.earliestStart = earliestStart;
-        this.lastestFinish = lastestFinish;
+        this.latestFinish = lastestFinish;
         isTaken = false;
     }
 
@@ -84,12 +84,12 @@ public class Ride {
         this.earliestStart = earliestStart;
     }
 
-    public int getLastestFinish() {
-        return lastestFinish;
+    public int getLatestFinish() {
+        return latestFinish;
     }
 
-    public void setLastestFinish(int lastestFinish) {
-        this.lastestFinish = lastestFinish;
+    public void setLatestFinish(int latestFinish) {
+        this.latestFinish = latestFinish;
     }
 
     public int getDistance() {
